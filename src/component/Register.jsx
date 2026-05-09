@@ -1,6 +1,7 @@
 import axios from "axios"
 import { Link } from "react-router"
 import { useState } from "react"
+import ProgressBar from "./ProgressBar"
 
 async function handleRegister(formData) {
     const env = import.meta.env
@@ -49,6 +50,8 @@ export default function Register() {
 
     return (
         <>
+            {loading && <ProgressBar></ProgressBar>}
+
             <div className="flex justify-center items-center h-screen m-2">
                 <div className="text-neutral-100 max-w-screen-sm w-full p-8 rounded-lg border border-neutral-800 bg-neutral-950">
                     <div className="text-center">
