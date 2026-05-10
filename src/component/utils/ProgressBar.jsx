@@ -13,7 +13,7 @@ export default function ProgressBar({ iniProgress = 10 }) {
     }, [progress])
 
     return (
-        <div className="w-full bg-black absolute top-0">
+        <div className="w-full bg-black fixed top-0">
             <div
                 className="bg-red-700 h-1 transition-all duration-1000 ease-out"
                 style={{ width: `${progress}%` }}

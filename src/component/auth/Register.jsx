@@ -1,7 +1,8 @@
 import axios from "axios"
 import { Link } from "react-router"
 import { useState } from "react"
-import ProgressBar from "./ProgressBar"
+import ProgressBar from "../utils/ProgressBar"
+import NotificationSenter from "../utils/NotificationSenter"
 
 async function handleRegister(formData) {
     const env = import.meta.env
@@ -14,25 +15,30 @@ async function handleRegister(formData) {
                 headers: { "Content-Type": "multipart/form-data" },
             }
         )
-        console.log(response.data)
+        console.log(response)
     } catch (error) {
-        const message = error.message || "Register failed"
+        console.log(error)
+        const message = error?.response?.data?.message || "Register failed"
         throw new Error(message)
     }
 }
 
 export default function Register() {
     const [loading, setLoading] = useState(false)
+    const [notification, setNotification] = useState(false)
+    const [notificationData, setNotificationData] = useState({})
+
+    const toggleNotification = () => setNotification(!notification)
 
     const onSubmit = async (e) => {
         e.preventDefault()
 
         const formData = new FormData(e.currentTarget)
-        console.log(formData)
 
         if (formData.get("profileImage").size === 0) {
             formData.delete("profileImage")
         }
+        console.log(formData)
 
         setLoading(true)
 
@@ -40,9 +46,11 @@ export default function Register() {
             await handleRegister(formData)
             // TODO: success handling
         } catch (error) {
-            const message = error.message || "Register failed"
-            alert(message)
-            throw new Error(message)
+            setNotificationData({
+                header: "Unable to create your account",
+                body: error.message,
+            })
+            toggleNotification()
         } finally {
             setLoading(false)
         }
@@ -51,6 +59,12 @@ export default function Register() {
     return (
         <>
             {loading && <ProgressBar></ProgressBar>}
+            {notification && (
+                <NotificationSenter
+                    onClick={toggleNotification}
+                    data={notificationData}
+                ></NotificationSenter>
+            )}
 
             <div className="flex justify-center items-center h-screen m-2">
                 <div className="text-neutral-100 max-w-screen-sm w-full p-8 rounded-lg border border-neutral-800 bg-neutral-950">
