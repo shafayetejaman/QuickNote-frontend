@@ -7,7 +7,7 @@ import Register from "./component/auth/Register.jsx"
 export default function App() {
     return (
         <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/Home" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
         </Routes>

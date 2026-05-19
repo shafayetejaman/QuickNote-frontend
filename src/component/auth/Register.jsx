@@ -19,7 +19,7 @@ async function handleRegister(formData) {
     } catch (error) {
         console.log(error)
         const message = error?.response?.data?.message || "Register failed"
-        throw new Error(message)
+        throw new Error(message, { cause: error })
     }
 }
 
@@ -44,7 +44,7 @@ export default function Register() {
 
         try {
             await handleRegister(formData)
-            // TODO: success handling
+            // TODO: add locastorage token and redirect
         } catch (error) {
             setNotificationData({
                 header: "Unable to create your account",
