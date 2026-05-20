@@ -4,13 +4,7 @@ import { Link, useNavigate } from "react-router"
 import ProgressBar from "../utils/ProgressBar"
 import NotificationSenter from "../utils/NotificationSenter"
 
-async function handleLogin(
-    username,
-    password,
-    navigate,
-    setNotificationData,
-    toggleNotification
-) {
+async function handleLogin(username, password) {
     console.log(username, password)
     const env = import.meta.env
 
@@ -23,16 +17,9 @@ async function handleLogin(
             }
         )
         console.log(response)
-        navigate("/home", { replace: true })
     } catch (error) {
-        const message = error.message || "Login failed"
-
-        setNotificationData({
-            header: "Unable to create your account",
-            body: message,
-        })
-        toggleNotification()
-
+        console.error(error)
+        const message = error?.response?.data?.message || "Login failed"
         throw new Error(message, { cause: error })
     }
 }
@@ -41,19 +28,31 @@ export default function Login() {
     const [loading, setLoading] = useState(false)
     const [notification, setNotification] = useState(false)
     const [notificationData, setNotificationData] = useState({})
+
     const toggleNotification = () => setNotification(!notification)
 
     const navigate = useNavigate()
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault()
         const formData = new FormData(e.target)
+
         setLoading(true)
-        handleLogin(
-            formData.get("username"),
-            formData.get("password"),
-            navigate,
-            setNotificationData
-        )
+
+        try {
+            await handleLogin(
+                formData.get("username"),
+                formData.get("password")
+            )
+            navigate("/home", { replace: true })
+        } catch (error) {
+            setNotificationData({
+                header: "Unable to login",
+                body: error.message,
+            })
+            setNotification(true)
+        } finally {
+            setLoading(false)
+        }
     }
 
     return (

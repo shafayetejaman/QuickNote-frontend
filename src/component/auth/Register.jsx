@@ -50,9 +50,9 @@ export default function Register() {
                 header: "Unable to create your account",
                 body: error.message,
             })
-            toggleNotification()
+            setNotification(true)
         } finally {
-            setLoading(false)
+            setNotification(true)
         }
     }
 

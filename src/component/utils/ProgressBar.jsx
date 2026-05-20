@@ -7,7 +7,6 @@ export default function ProgressBar({ iniProgress = 10 }) {
         if (progress >= 90) return
         const intervel = setTimeout(() => {
             setProgress(Math.min(progress + 20, 90))
-            console.log(progress)
         }, 800)
         return () => clearTimeout(intervel)
     }, [progress])
