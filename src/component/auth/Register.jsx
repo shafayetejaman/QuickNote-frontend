@@ -40,11 +40,14 @@ export default function Register() {
         }
         console.log(formData)
 
-        setLoading(true)
-
         try {
+            setLoading(true)
             await handleRegister(formData)
-            // TODO: add locastorage token and redirect
+            setNotificationData({
+                header: "Account Created Successfully",
+                body: "We will send you an email shortly",
+            })
+            setNotification(true)
         } catch (error) {
             setNotificationData({
                 header: "Unable to create your account",
@@ -52,7 +55,7 @@ export default function Register() {
             })
             setNotification(true)
         } finally {
-            setNotification(true)
+            setLoading(false)
         }
     }
 

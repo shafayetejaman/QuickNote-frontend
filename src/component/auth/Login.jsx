@@ -17,6 +17,7 @@ async function handleLogin(username, password) {
             }
         )
         console.log(response)
+        return response.data
     } catch (error) {
         console.error(error)
         const message = error?.response?.data?.message || "Login failed"
@@ -36,19 +37,21 @@ export default function Login() {
         e.preventDefault()
         const formData = new FormData(e.target)
 
-        setLoading(true)
-
         try {
-            await handleLogin(
+            setLoading(true)
+            const response = await handleLogin(
                 formData.get("username"),
                 formData.get("password")
             )
+
+            localStorage.setItem("userId", response.data.userId)
             navigate("/home", { replace: true })
         } catch (error) {
             setNotificationData({
                 header: "Unable to login",
                 body: error.message,
             })
+
             setNotification(true)
         } finally {
             setLoading(false)
@@ -84,6 +87,7 @@ export default function Login() {
                                 type="username"
                                 name="username"
                                 placeholder="Enter Your Username"
+                                required
                                 className="w-full bg-[#171717] rounded p-2 border border-neutral-800 mt-1"
                             />
                         </div>
@@ -93,6 +97,7 @@ export default function Login() {
                                 type="password"
                                 name="password"
                                 placeholder="Enter Your Password"
+                                required
                                 className="w-full bg-[#171717] rounded p-2 border border-neutral-800 mt-1"
                             />
                         </div>
