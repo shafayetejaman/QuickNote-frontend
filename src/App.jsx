@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router"
 
-import Home from "./component/Home.jsx"
+import Home from "./component/home/Home.jsx"
 import Login from "./component/auth/Login.jsx"
 import Register from "./component/auth/Register.jsx"
 
