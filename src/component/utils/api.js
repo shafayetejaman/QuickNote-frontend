@@ -1,6 +1,7 @@
 import axios from "axios"
 
 function initAxios() {
+    const env = import.meta.env
     const baseURL = env.VITE_LOCAL_BASE_BACKEND_URL | ""
     const axiosInstance = axios.create({
         baseURL,
@@ -13,10 +14,18 @@ function initAxios() {
 
     axiosInstance.interceptors.request.use((config) => {
         // Do something before request is sent
+        const token = localStorage.getItem("token")
+            ? localStorage.getItem("token")
+            : null
+        if (!token) {
+            axios.get(`${baseURL}/api/v1/users/get-refresh-token`, {})
+        }
+
+        config.headers.Authorization = token
         return config
     })
 
     return axiosInstance
 }
 
-export default api = initAxios()
+export const api = initAxios()

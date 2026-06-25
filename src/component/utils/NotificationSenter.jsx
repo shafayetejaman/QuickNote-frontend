@@ -24,8 +24,14 @@ export default function NotificationSenter({
                             </svg>
                         </div>
                         <div>
-                            <p className="text-white">{data.header}</p>
-                            <p className="text-gray-500">{data.body}</p>
+                            <p className="text-white">
+                                {data.header.slice(0, 20)}
+                                {data.header.length > 20 ? "..." : ""}
+                            </p>
+                            <p className="text-gray-500">
+                                {data.body.slice(0, 60)}
+                                {data.header.length > 60 ? "..." : ""}
+                            </p>
                         </div>
                     </div>
                     <button className="text-gray-600 hover:bg-white/10 p-1 rounded-md transition-colors ease-linear">
