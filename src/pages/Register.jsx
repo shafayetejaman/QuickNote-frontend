@@ -1,8 +1,8 @@
 import axios from "axios"
 import { Link } from "react-router"
 import { useState } from "react"
-import ProgressBar from "../utils/ProgressBar"
-import NotificationSenter from "../utils/NotificationSenter"
+import ProgressBar from "../component/ProgressBar"
+import NotificationSenter from "../component/NotificationSenter"
 
 async function handleRegister(formData) {
     const env = import.meta.env

@@ -1,15 +1,38 @@
 import { Routes, Route } from "react-router"
 
-import Home from "./component/home/Home.jsx"
-import Login from "./component/auth/Login.jsx"
-import Register from "./component/auth/Register.jsx"
+import Home from "./pages/Home.jsx"
+import Login from "./pages/Login.jsx"
+import Register from "./pages/Register.jsx"
+import AnonymusRoute from "./utils/AnonymusRoute.jsx"
+import PrivateRoute from "./utils/PrivateRoute.jsx.jsx"
 
 export default function App() {
     return (
         <Routes>
-            <Route path="/Home" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route
+                path="/Home"
+                element={
+                    <PrivateRoute>
+                        <Home />
+                    </PrivateRoute>
+                }
+            />
+            <Route
+                path="/login"
+                element={
+                    <AnonymusRoute>
+                        <Login />
+                    </AnonymusRoute>
+                }
+            />
+            <Route
+                path="/register"
+                element={
+                    <AnonymusRoute>
+                        <Register />
+                    </AnonymusRoute>
+                }
+            />
         </Routes>
     )
 }

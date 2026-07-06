@@ -1,8 +1,8 @@
 import axios from "axios"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router"
-import ProgressBar from "../utils/ProgressBar"
-import NotificationSenter from "../utils/NotificationSenter"
+import ProgressBar from "../component/ProgressBar"
+import NotificationSenter from "../component/NotificationSenter"
 
 async function handleLogin(username, password) {
     console.log(username, password)
