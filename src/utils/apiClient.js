@@ -4,7 +4,7 @@ import { redirect } from "react-router"
 
 function initAxios() {
     const env = import.meta.env
-    const baseURL = (env.VITE_LOCAL_BASE_BACKEND_URL + "/api/v1") | ""
+    const baseURL = env.VITE_LOCAL_BASE_BACKEND_URL + "/api/v1" || ""
     const axiosInstance = axios.create({
         baseURL,
         timeout: 5000,
@@ -18,7 +18,7 @@ function initAxios() {
     // add bearer token before every request
     axiosInstance.interceptors.request.use(
         (config) => {
-            const token = localStorage.get("accessToken")
+            const token = localStorage.getItem("accessToken")
             config.headers.Authorization = `Bearer ${token}`
 
             return config

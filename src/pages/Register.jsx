@@ -70,8 +70,9 @@ export default function Register() {
                         className="flex flex-col gap-3 mt-7"
                     >
                         <div>
-                            <label className="block mb-1">Full Name</label>
+                            <label htmlFor="fullName" className="block mb-1">Full Name</label>
                             <input
+                                id="fullName"
                                 type="text"
                                 name="fullName"
                                 placeholder="ex: John Doe"
@@ -81,8 +82,9 @@ export default function Register() {
                         </div>
 
                         <div>
-                            <label className="block mb-1">Username</label>
+                            <label htmlFor="reg-username" className="block mb-1">Username</label>
                             <input
+                                id="reg-username"
                                 type="text"
                                 name="username"
                                 placeholder="ex: johndoe"
@@ -92,8 +94,9 @@ export default function Register() {
                         </div>
 
                         <div>
-                            <label className="block mb-1">Email</label>
+                            <label htmlFor="email" className="block mb-1">Email</label>
                             <input
+                                id="email"
                                 type="email"
                                 name="email"
                                 placeholder="ex: john@example.com"
@@ -103,8 +106,9 @@ export default function Register() {
                         </div>
 
                         <div>
-                            <label className="block mb-1">Password</label>
+                            <label htmlFor="reg-password" className="block mb-1">Password</label>
                             <input
+                                id="reg-password"
                                 type="password"
                                 name="password"
                                 placeholder="At least 8 characters, 1 letter and 1 number"
@@ -114,8 +118,9 @@ export default function Register() {
                         </div>
 
                         <div>
-                            <label className="block mb-1">Profile Image</label>
+                            <label htmlFor="profileImage" className="block mb-1">Profile Image</label>
                             <input
+                                id="profileImage"
                                 type="file"
                                 name="profileImage"
                                 accept="image/*"

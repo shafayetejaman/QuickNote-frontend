@@ -1,9 +1,8 @@
-import { redirect } from "react-router"
+import { Navigate } from "react-router"
 
-export default function PrivateRoute({ child }) {
+export default function PrivateRoute({ children }) {
     const userId = localStorage.getItem("userId")
+    if (userId) return children
 
-    if (userId) return { child }
-
-    redirect("/login")
+    return <Navigate to="/login" replace></Navigate>
 }

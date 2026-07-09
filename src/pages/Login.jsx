@@ -11,11 +11,12 @@ export default function Login() {
     const navigate = useNavigate()
 
     const toggleNotification = () => {
-        setNotification({ show: !notification.show, message: "" })
+        setNotification({ show: !notification.show, header: "", body: "" })
     }
 
     const onError = (message) => {
         setNotification({
+            show: true,
             header: "Unable to login",
             body: message,
         })
@@ -32,8 +33,11 @@ export default function Login() {
     const onSubmit = async (e) => {
         e.preventDefault()
         const formData = new FormData(e.target)
-
-        await requestHander(loginUser(formData), setLoading, onSuccess, onError)
+        const data = {
+            username: formData.get("username"),
+            password: formData.get("password"),
+        }
+        await requestHander(loginUser(data), setLoading, onSuccess, onError)
     }
 
     return (
@@ -42,7 +46,7 @@ export default function Login() {
             {notification.show && (
                 <NotificationSenter
                     onClick={toggleNotification}
-                    data={notification.message}
+                    data={notification}
                 ></NotificationSenter>
             )}
 
@@ -60,8 +64,9 @@ export default function Login() {
                         className="flex flex-col gap-3 mt-7"
                     >
                         <div>
-                            <lable>Username</lable>
+                            <label htmlFor="username">Username</label>
                             <input
+                                id="username"
                                 type="username"
                                 name="username"
                                 placeholder="Enter Your Username"
@@ -70,8 +75,9 @@ export default function Login() {
                             />
                         </div>
                         <div>
-                            <lable>Password</lable>
+                            <label htmlFor="password">Password</label>
                             <input
+                                id="password"
                                 type="password"
                                 name="password"
                                 placeholder="Enter Your Password"

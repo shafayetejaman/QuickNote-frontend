@@ -1,8 +1,8 @@
-import { redirect } from "react-router"
+import { Navigate } from "react-router"
 
-export default function AnonymusRoute({ child }) {
+export default function AnonymusRoute({ children }) {
     const userId = localStorage.getItem("userId")
-    if (!userId) return { child }
+    if (!userId) return children
 
-    redirect("/home")
+    return <Navigate to="/home" replace></Navigate>
 }
