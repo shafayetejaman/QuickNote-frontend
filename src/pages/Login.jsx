@@ -11,7 +11,7 @@ export default function Login() {
     const navigate = useNavigate()
 
     const toggleNotification = () => {
-        setNotification({ show: !notification.show, header: "", body: "" })
+        setNotification({ show: false })
     }
 
     const onError = (message) => {

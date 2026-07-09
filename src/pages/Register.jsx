@@ -11,11 +11,12 @@ export default function Register() {
     const navigate = useNavigate()
 
     const toggleNotification = () => {
-        setNotification({ show: !notification.show, message: "" })
+        setNotification({ show: false })
     }
 
     const onError = (message) => {
         setNotification({
+            show: true,
             header: "Unable to register account",
             body: message,
         })
@@ -51,7 +52,7 @@ export default function Register() {
             {notification.show && (
                 <NotificationSenter
                     onClick={toggleNotification}
-                    data={notification.message}
+                    data={notification}
                 ></NotificationSenter>
             )}
 
@@ -70,7 +71,9 @@ export default function Register() {
                         className="flex flex-col gap-3 mt-7"
                     >
                         <div>
-                            <label htmlFor="fullName" className="block mb-1">Full Name</label>
+                            <label htmlFor="fullName" className="block mb-1">
+                                Full Name
+                            </label>
                             <input
                                 id="fullName"
                                 type="text"
@@ -82,7 +85,12 @@ export default function Register() {
                         </div>
 
                         <div>
-                            <label htmlFor="reg-username" className="block mb-1">Username</label>
+                            <label
+                                htmlFor="reg-username"
+                                className="block mb-1"
+                            >
+                                Username
+                            </label>
                             <input
                                 id="reg-username"
                                 type="text"
@@ -94,7 +102,9 @@ export default function Register() {
                         </div>
 
                         <div>
-                            <label htmlFor="email" className="block mb-1">Email</label>
+                            <label htmlFor="email" className="block mb-1">
+                                Email
+                            </label>
                             <input
                                 id="email"
                                 type="email"
@@ -106,7 +116,12 @@ export default function Register() {
                         </div>
 
                         <div>
-                            <label htmlFor="reg-password" className="block mb-1">Password</label>
+                            <label
+                                htmlFor="reg-password"
+                                className="block mb-1"
+                            >
+                                Password
+                            </label>
                             <input
                                 id="reg-password"
                                 type="password"
@@ -118,7 +133,12 @@ export default function Register() {
                         </div>
 
                         <div>
-                            <label htmlFor="profileImage" className="block mb-1">Profile Image</label>
+                            <label
+                                htmlFor="profileImage"
+                                className="block mb-1"
+                            >
+                                Profile Image
+                            </label>
                             <input
                                 id="profileImage"
                                 type="file"
