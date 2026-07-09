@@ -1,71 +1,57 @@
-import axios from "axios"
-import { Link } from "react-router"
+import { Link, useNavigate } from "react-router"
 import { useState } from "react"
 import ProgressBar from "../component/ProgressBar"
 import NotificationSenter from "../component/NotificationSenter"
-
-async function handleRegister(formData) {
-    const env = import.meta.env
-
-    try {
-        const response = await axios.post(
-            `${env.VITE_LOCAL_BASE_BACKEND_URL}/api/v1/users/register`,
-            formData,
-            {
-                headers: { "Content-Type": "multipart/form-data" },
-            }
-        )
-        console.log(response)
-    } catch (error) {
-        console.log(error)
-        const message = error?.response?.data?.message || "Register failed"
-        throw new Error(message, { cause: error })
-    }
-}
+import requestHander from "../utils/requestHandler"
+import { registerUser } from "../api/auth"
 
 export default function Register() {
     const [loading, setLoading] = useState(false)
-    const [notification, setNotification] = useState(false)
-    const [notificationData, setNotificationData] = useState({})
+    const [notification, setNotification] = useState({})
+    const navigate = useNavigate()
 
-    const toggleNotification = () => setNotification(!notification)
+    const toggleNotification = () => {
+        setNotification({ show: !notification.show, message: "" })
+    }
+
+    const onError = (message) => {
+        setNotification({
+            header: "Unable to register account",
+            body: message,
+        })
+    }
+
+    const onSuccess = (data) => {
+        localStorage.setItem("userId", data.userId)
+        localStorage.setItem("accessToken", data.accessToken)
+        localStorage.setItem("refreshToken", data.refreshToken)
+
+        navigate("/home", { replace: true })
+    }
 
     const onSubmit = async (e) => {
         e.preventDefault()
-
-        const formData = new FormData(e.currentTarget)
+        const formData = new FormData(e.target)
 
         if (formData.get("profileImage").size === 0) {
             formData.delete("profileImage")
         }
-        console.log(formData)
 
-        try {
-            setLoading(true)
-            await handleRegister(formData)
-            setNotificationData({
-                header: "Account Created Successfully",
-                body: "We will send you an email shortly",
-            })
-            setNotification(true)
-        } catch (error) {
-            setNotificationData({
-                header: "Unable to create your account",
-                body: error.message,
-            })
-            setNotification(true)
-        } finally {
-            setLoading(false)
-        }
+        await requestHander(
+            registerUser(formData),
+            setLoading,
+            onSuccess,
+            onError
+        )
     }
 
     return (
         <>
             {loading && <ProgressBar></ProgressBar>}
-            {notification && (
+            {notification.show && (
                 <NotificationSenter
                     onClick={toggleNotification}
-                    data={notificationData}
+                    data={notification.message}
                 ></NotificationSenter>
             )}
 

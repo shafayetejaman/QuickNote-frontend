@@ -1,70 +1,48 @@
-import axios from "axios"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router"
 import ProgressBar from "../component/ProgressBar"
 import NotificationSenter from "../component/NotificationSenter"
-
-async function handleLogin(username, password) {
-    console.log(username, password)
-    const env = import.meta.env
-
-    try {
-        const response = await axios.post(
-            `${env.VITE_LOCAL_BASE_BACKEND_URL}/api/v1/users/login`,
-            {
-                username,
-                password,
-            }
-        )
-        console.log(response)
-        return response.data
-    } catch (error) {
-        console.error(error)
-        const message = error?.response?.data?.message || "Login failed"
-        throw new Error(message, { cause: error })
-    }
-}
+import { loginUser } from "../api/auth"
+import requestHander from "../utils/requestHandler"
 
 export default function Login() {
     const [loading, setLoading] = useState(false)
-    const [notification, setNotification] = useState(false)
-    const [notificationData, setNotificationData] = useState({})
-
-    const toggleNotification = () => setNotification(!notification)
-
+    const [notification, setNotification] = useState({})
     const navigate = useNavigate()
+
+    const toggleNotification = () => {
+        setNotification({ show: !notification.show, message: "" })
+    }
+
+    const onError = (message) => {
+        setNotification({
+            header: "Unable to login",
+            body: message,
+        })
+    }
+
+    const onSuccess = (data) => {
+        localStorage.setItem("userId", data.userId)
+        localStorage.setItem("accessToken", data.accessToken)
+        localStorage.setItem("refreshToken", data.refreshToken)
+
+        navigate("/home", { replace: true })
+    }
+
     const onSubmit = async (e) => {
         e.preventDefault()
         const formData = new FormData(e.target)
 
-        try {
-            setLoading(true)
-            const response = await handleLogin(
-                formData.get("username"),
-                formData.get("password")
-            )
-
-            localStorage.setItem("userId", response.data.userId)
-            navigate("/home", { replace: true })
-        } catch (error) {
-            setNotificationData({
-                header: "Unable to login",
-                body: error.message,
-            })
-
-            setNotification(true)
-        } finally {
-            setLoading(false)
-        }
+        await requestHander(loginUser(formData), setLoading, onSuccess, onError)
     }
 
     return (
         <>
             {loading && <ProgressBar></ProgressBar>}
-            {notification && (
+            {notification.show && (
                 <NotificationSenter
                     onClick={toggleNotification}
-                    data={notificationData}
+                    data={notification.message}
                 ></NotificationSenter>
             )}
 

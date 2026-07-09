@@ -1,15 +1,15 @@
-import axiosInstance from "./axiosInstance.js"
+import apiClient from "../utils/apiClient.js"
 
 const loginUser = (data) => {
-    return axiosInstance.post("/users/login", data)
+    return apiClient.post("/users/login", data)
 }
 
-const registerUser = (formData) => {
-    return axiosInstance.post("/users/register", formData)
+const registerUser = (data) => {
+    return apiClient.post("/users/register", data)
 }
 
 const getRefreshToken = (token) => {
-    return axiosInstance.post("/users/get-refresh-token", token)
+    return apiClient.post("/users/get-refresh-token", token)
 }
 
 export { loginUser, registerUser, getRefreshToken }
