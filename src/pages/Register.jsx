@@ -22,12 +22,8 @@ export default function Register() {
         })
     }
 
-    const onSuccess = (data) => {
-        localStorage.setItem("userId", data.userId)
-        localStorage.setItem("accessToken", data.accessToken)
-        localStorage.setItem("refreshToken", data.refreshToken)
-
-        navigate("/home", { replace: true })
+    const onSuccess = () => {
+        navigate("/activation-pending", { replace: true })
     }
 
     const onSubmit = async (e) => {

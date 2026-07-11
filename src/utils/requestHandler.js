@@ -15,6 +15,7 @@ export default async function requestHander(
         if (onError) {
             onError(error?.response?.data?.message || "Something went wrong")
         }
+        console.error(error)
     } finally {
         if (setLoading) setLoading(false)
     }

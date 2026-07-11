@@ -1,10 +1,11 @@
 import { Routes, Route } from "react-router"
 
+import AnonymusRoute from "./component/AnonymusRoute.jsx"
+import PrivateRoute from "./component/PrivateRoute.jsx"
 import Home from "./pages/Home.jsx"
 import Login from "./pages/Login.jsx"
 import Register from "./pages/Register.jsx"
-import AnonymusRoute from "./utils/AnonymusRoute.jsx"
-import PrivateRoute from "./utils/PrivateRoute.jsx"
+import ActivationPending from "./pages/ActivationPending.jsx"
 
 export default function App() {
     return (
@@ -30,6 +31,14 @@ export default function App() {
                 element={
                     <AnonymusRoute>
                         <Register />
+                    </AnonymusRoute>
+                }
+            />
+            <Route
+                path="/activation-pending"
+                element={
+                    <AnonymusRoute>
+                        <ActivationPending />
                     </AnonymusRoute>
                 }
             />
