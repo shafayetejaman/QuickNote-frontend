@@ -8,5 +8,7 @@ export default defineConfig({
             logLevels: ["log", "info", "warn", "error", "debug"],
             unhandledErrors: true,
         },
+        host: "localhost",
+        port: 3000,
     },
 })
