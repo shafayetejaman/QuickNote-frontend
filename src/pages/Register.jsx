@@ -1,14 +1,18 @@
 import { Link, useNavigate } from "react-router"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import Card from "../component/Card"
+import InputField from "../component/InputField"
 import ProgressBar from "../component/ProgressBar"
-import NotificationSenter from "../component/NotificationSenter"
+import NotificationCenter from "../component/NotificationCenter"
 import requestHander from "../utils/requestHandler"
 import { registerUser } from "../api/auth"
 
 export default function Register() {
     const [loading, setLoading] = useState(false)
     const [notification, setNotification] = useState({})
+    const [validationError, setValidationError] = useState({})
+    const [password, setPassword] = useState({})
+    const passRef = useRef()
     const navigate = useNavigate()
 
     const toggleNotification = () => {
@@ -18,7 +22,7 @@ export default function Register() {
     const onError = (message) => {
         setNotification({
             show: true,
-            header: "Unable to register account",
+            header: "",
             body: message,
         })
     }
@@ -44,13 +48,13 @@ export default function Register() {
     }
 
     return (
-        <>
+        <div className="flex justify-center min-h-screen">
             {loading && <ProgressBar></ProgressBar>}
             {notification.show && (
-                <NotificationSenter
+                <NotificationCenter
                     onClick={toggleNotification}
                     data={notification}
-                ></NotificationSenter>
+                ></NotificationCenter>
             )}
 
             <Card>
@@ -62,79 +66,53 @@ export default function Register() {
                     method="POST"
                     className="flex flex-col gap-3 mt-7"
                 >
-                    <div className="text-left">
-                        <label htmlFor="fullName" className="block mb-1">
-                            Full Name
-                        </label>
-                        <input
-                            id="fullName"
-                            type="text"
-                            name="fullName"
-                            placeholder="ex: John Doe"
-                            required
-                            className="w-full bg-[#171717] rounded p-2 border border-neutral-800"
-                        />
-                    </div>
-
-                    <div className="text-left">
-                        <label htmlFor="reg-username" className="block mb-1">
-                            Username
-                        </label>
-                        <input
-                            id="reg-username"
-                            type="text"
-                            name="username"
-                            placeholder="ex: johndoe"
-                            required
-                            className="w-full bg-[#171717] rounded p-2 border border-neutral-800"
-                        />
-                    </div>
-
-                    <div className="text-left">
-                        <label htmlFor="email" className="block mb-1">
-                            Email
-                        </label>
-                        <input
-                            id="email"
-                            type="email"
-                            name="email"
-                            placeholder="ex: john@example.com"
-                            required
-                            className="w-full bg-[#171717] rounded p-2 border border-neutral-800"
-                        />
-                    </div>
-
-                    <div className="text-left">
-                        <label htmlFor="reg-password" className="block mb-1">
-                            Password
-                        </label>
-                        <input
-                            id="reg-password"
-                            type="password"
-                            name="password"
-                            placeholder="At least 8 characters, 1 letter and 1 number"
-                            required
-                            className="w-full bg-[#171717] rounded p-2 border border-neutral-800"
-                        />
-                    </div>
-
-                    <div className="text-left">
-                        <label htmlFor="profileImage" className="block mb-1">
-                            Profile Image
-                        </label>
-                        <input
-                            id="profileImage"
-                            type="file"
-                            name="profileImage"
-                            accept="image/*"
-                            className="w-full bg-[#171717] rounded p-2 border border-neutral-800 accent-gray-900"
-                        />
-                    </div>
+                    <InputField
+                        id="fullName"
+                        label="Full Name"
+                        name="fullName"
+                        placeholder="ex: John Doe"
+                        required
+                    />
+                    <InputField
+                        id="reg-username"
+                        label="Username"
+                        name="username"
+                        placeholder="ex: johndoe"
+                        required
+                    />
+                    <InputField
+                        id="email"
+                        label="Email"
+                        type="email"
+                        name="email"
+                        placeholder="ex: john@example.com"
+                        required
+                    />
+                    <InputField
+                        id="reg-password"
+                        label="Password"
+                        type="password"
+                        name="password"
+                        placeholder="Use strong password"
+                        required
+                    />
+                    {validationError.error && (
+                        <h1>{validationError.message}</h1>
+                    )}
+                    <InputField
+                        id="profileImage"
+                        label="Profile Image"
+                        type="file"
+                        name="profileImage"
+                        accept="image/*"
+                        className="accent-gray-900"
+                        ref={passRef}
+                    />
 
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-red-600 rounded p-2 mt-2 hover:bg-red-700 transition disabled:opacity-50"
+                        className="w-full bg-red-600 rounded p-2 mt-3 hover:bg-red-700 transition disabled:opacity-50"
                     >
                         {loading ? "Signing..." : "Sign Up"}
                     </button>
@@ -150,6 +128,6 @@ export default function Register() {
                     </p>
                 </form>
             </Card>
-        </>
+        </div>
     )
 }

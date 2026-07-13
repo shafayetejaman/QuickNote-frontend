@@ -1,8 +1,9 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router"
 import Card from "../component/Card"
+import InputField from "../component/InputField"
 import ProgressBar from "../component/ProgressBar"
-import NotificationSenter from "../component/NotificationSenter"
+import NotificationCenter from "../component/NotificationCenter"
 import { loginUser } from "../api/auth"
 import requestHander from "../utils/requestHandler"
 
@@ -42,13 +43,13 @@ export default function Login() {
     }
 
     return (
-        <>
+        <div className="flex justify-center min-h-screen">
             {loading && <ProgressBar></ProgressBar>}
             {notification.show && (
-                <NotificationSenter
+                <NotificationCenter
                     onClick={toggleNotification}
                     data={notification}
-                ></NotificationSenter>
+                ></NotificationCenter>
             )}
 
             <Card>
@@ -59,29 +60,23 @@ export default function Login() {
                     method="POST"
                     className="flex flex-col gap-3 mt-7"
                 >
-                    <div className="text-left">
-                        <label htmlFor="username">Username</label>
-                        <input
-                            id="username"
-                            type="username"
-                            name="username"
-                            placeholder="Enter Your Username"
-                            required
-                            className="w-full bg-[#171717] rounded p-2 border border-neutral-800 mt-1"
-                        />
-                    </div>
-                    <div className="text-left">
-                        <label htmlFor="password">Password</label>
-                        <input
-                            id="password"
-                            type="password"
-                            name="password"
-                            placeholder="Enter Your Password"
-                            required
-                            className="w-full bg-[#171717] rounded p-2 border border-neutral-800 mt-1"
-                        />
-                    </div>
-                    <button className="w-full bg-red-600 rounded p-2 mt-2">
+                    <InputField
+                        id="username"
+                        label="Username"
+                        type="username"
+                        name="username"
+                        placeholder="Enter Your Username"
+                        required
+                    />
+                    <InputField
+                        id="password"
+                        label="Password"
+                        type="password"
+                        name="password"
+                        placeholder="Enter Your Password"
+                        required
+                    />
+                    <button className="w-full bg-red-600 rounded p-2 mt-3">
                         Sign In
                     </button>
                     <p className="text-neutral-400">
@@ -92,6 +87,6 @@ export default function Login() {
                     </p>
                 </form>
             </Card>
-        </>
+        </div>
     )
 }

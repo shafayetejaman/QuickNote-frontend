@@ -1,4 +1,4 @@
-export default function NotificationSenter({
+export default function NotificationCenter({
     onClick,
     data = { header: "Please try again.", body: "Something when Wrong!" },
 }) {
