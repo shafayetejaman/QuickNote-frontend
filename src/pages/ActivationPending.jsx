@@ -1,5 +1,5 @@
 import { Mail, CheckCircle } from "lucide-react"
-import Card from "../component/Card"
+import Card from "../component/ui/Card"
 
 export default function ActivationPending() {
     return (

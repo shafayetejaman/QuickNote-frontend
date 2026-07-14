@@ -1,11 +1,12 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router"
-import Card from "../component/Card"
-import InputField from "../component/InputField"
+import Card from "../component/ui/Card"
+import InputField from "../component/ui/InputField"
 import ProgressBar from "../component/ProgressBar"
-import NotificationCenter from "../component/NotificationCenter"
 import { loginUser } from "../api/auth"
 import requestHander from "../utils/requestHandler"
+import NotificationModal from "../component/NotificationModal"
+import Button from "../component/ui/Button"
 
 export default function Login() {
     const [loading, setLoading] = useState(false)
@@ -13,12 +14,15 @@ export default function Login() {
     const navigate = useNavigate()
 
     const toggleNotification = () => {
-        setNotification({ show: false })
+        setNotification((prev) => ({
+            ...prev,
+            error: !prev.error,
+        }))
     }
 
     const onError = (message) => {
         setNotification({
-            show: true,
+            error: true,
             header: "Unable to login",
             body: message,
         })
@@ -45,15 +49,15 @@ export default function Login() {
     return (
         <div className="flex justify-center min-h-screen">
             {loading && <ProgressBar></ProgressBar>}
-            {notification.show && (
-                <NotificationCenter
+            {notification.error && (
+                <NotificationModal
                     onClick={toggleNotification}
                     data={notification}
-                ></NotificationCenter>
+                ></NotificationModal>
             )}
 
             <Card>
-                <h1 className="text-3xl mb-3">Welcome Back</h1>
+                <p className="text-3xl mb-3">Welcome Back</p>
                 <h1 className="text-neutral-400">Sign in to continue</h1>
                 <form
                     onSubmit={onSubmit}
@@ -76,9 +80,7 @@ export default function Login() {
                         placeholder="Enter Your Password"
                         required
                     />
-                    <button className="w-full bg-red-600 rounded p-2 mt-3">
-                        Sign In
-                    </button>
+                    <Button loading={loading} text={"Sign In"} />
                     <p className="text-neutral-400">
                         Don't have an account?{" "}
                         <Link className="text-red-600" to="/register">

@@ -1,28 +1,37 @@
 import { Link, useNavigate } from "react-router"
-import { useRef, useState } from "react"
-import Card from "../component/Card"
-import InputField from "../component/InputField"
+import { useEffect, useState } from "react"
+import Card from "../component/ui/Card"
+import InputField from "../component/ui/InputField"
 import ProgressBar from "../component/ProgressBar"
-import NotificationCenter from "../component/NotificationCenter"
 import requestHander from "../utils/requestHandler"
 import { registerUser } from "../api/auth"
+import NotificationModal from "../component/NotificationModal"
+import passwordValitor from "../validator/passwordValidator"
+import { CircleX } from "lucide-react"
+import Button from "../component/ui/Button"
 
 export default function Register() {
     const [loading, setLoading] = useState(false)
     const [notification, setNotification] = useState({})
-    const [validationError, setValidationError] = useState({})
-    const [password, setPassword] = useState({})
-    const passRef = useRef()
+    const [passwordValidationError, setPasswordValidationError] = useState({})
+    const [password, setPassword] = useState("")
     const navigate = useNavigate()
 
+    useEffect(() => {
+        passwordValitor(password, setPasswordValidationError)
+    }, [password])
+
     const toggleNotification = () => {
-        setNotification({ show: false })
+        setNotification((prev) => ({
+            ...prev,
+            error: !prev.error,
+        }))
     }
 
     const onError = (message) => {
         setNotification({
-            show: true,
-            header: "",
+            error: true,
+            header: "Unable to register user",
             body: message,
         })
     }
@@ -39,6 +48,14 @@ export default function Register() {
             formData.delete("profileImage")
         }
 
+        if (passwordValidationError.error) {
+            return setNotification({
+                error: true,
+                header: "Invalid Password",
+                body: "Please use a Valid password",
+            })
+        }
+
         await requestHander(
             registerUser(formData),
             setLoading,
@@ -50,11 +67,11 @@ export default function Register() {
     return (
         <div className="flex justify-center min-h-screen">
             {loading && <ProgressBar></ProgressBar>}
-            {notification.show && (
-                <NotificationCenter
+            {notification.error && (
+                <NotificationModal
                     onClick={toggleNotification}
                     data={notification}
-                ></NotificationCenter>
+                ></NotificationModal>
             )}
 
             <Card>
@@ -95,9 +112,22 @@ export default function Register() {
                         name="password"
                         placeholder="Use strong password"
                         required
+                        onChange={setPassword}
                     />
-                    {validationError.error && (
-                        <h1>{validationError.message}</h1>
+                    {passwordValidationError.error && (
+                        <div className="flex flex-col gap-2 my-2 text-sm text-red-700 text-left">
+                            {passwordValidationError.message.map(
+                                (message, idx) => (
+                                    <p
+                                        key={idx}
+                                        className="flex items-center gap-1"
+                                    >
+                                        <CircleX size={16} strokeWidth={3} />
+                                        <span>{message}</span>
+                                    </p>
+                                )
+                            )}
+                        </div>
                     )}
                     <InputField
                         id="profileImage"
@@ -105,17 +135,9 @@ export default function Register() {
                         type="file"
                         name="profileImage"
                         accept="image/*"
-                        className="accent-gray-900"
-                        ref={passRef}
                     />
 
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        className="w-full bg-red-600 rounded p-2 mt-3 hover:bg-red-700 transition disabled:opacity-50"
-                    >
-                        {loading ? "Signing..." : "Sign Up"}
-                    </button>
+                    <Button text={"Sign Up"} loading={loading} />
 
                     <p className="text-neutral-400">
                         Already have account?{" "}

@@ -1,4 +1,4 @@
-export default function NotificationCenter({
+export default function NotificationModal({
     onClick,
     data = { header: "Please try again.", body: "Something when Wrong!" },
 }) {
@@ -23,14 +23,14 @@ export default function NotificationCenter({
                                 />
                             </svg>
                         </div>
-                        <div>
+                        <div className="text-wrap">
                             <p className="text-white">
-                                {data.header.slice(0, 20)}
-                                {data.header.length > 20 ? "..." : ""}
+                                {data.header.slice(0, 30)}
+                                {data.header.length > 30 ? "..." : ""}
                             </p>
                             <p className="text-gray-500">
-                                {data.body.slice(0, 60)}
-                                {data.header.length > 60 ? "..." : ""}
+                                {data.body.slice(0, 80)}
+                                {data.header.length > 80 ? "..." : ""}
                             </p>
                         </div>
                     </div>
