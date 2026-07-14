@@ -58,7 +58,7 @@ export default function Login() {
 
             <Card>
                 <p className="text-3xl mb-3">Welcome Back</p>
-                <h1 className="text-neutral-400">Sign in to continue</h1>
+                <h1 className="text-subtitle">Sign in to continue</h1>
                 <form
                     onSubmit={onSubmit}
                     method="POST"
@@ -81,9 +81,9 @@ export default function Login() {
                         required
                     />
                     <Button loading={loading} text={"Sign In"} />
-                    <p className="text-neutral-400">
+                    <p className="text-subtitle">
                         Don't have an account?{" "}
-                        <Link className="text-red-600" to="/register">
+                        <Link className="text-primary" to="/register">
                             Sign Up
                         </Link>
                     </p>

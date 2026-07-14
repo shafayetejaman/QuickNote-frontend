@@ -16,7 +16,7 @@ export default function InputField({
     if (type === "file") {
         className += classNameJoin(
             "file:mr-4 file:py-2 file:px-3 file:rounded file:border-0",
-            "file:text-sm file:bg-red-600 file:text-white file:hover:bg-red-700",
+            "file:text-sm file:bg-primary file:text-natural file:hover:bg-primary-hover",
             "text-lg text-[22px] transition duration-150"
         )
     }
@@ -39,7 +39,7 @@ export default function InputField({
                         ? () => {}
                         : (e) => onChange(e.target.value)
                 }
-                className={`w-full bg-[#171717] rounded p-2 border border-neutral-800 mt-1 ${className} text-xs`}
+                className={`w-full bg-surface-alt rounded p-2 border border-border mt-1 ${className} text-sm`}
             />
         </div>
     )

@@ -3,11 +3,11 @@ export default function NotificationModal({
     data = { header: "Please try again.", body: "Something when Wrong!" },
 }) {
     return (
-        <div className="fixed h-full w-full flex justify-center items-center bg-black/20 backdrop-blur-md">
+        <div className="fixed h-full w-full flex justify-center items-center bg-overlay backdrop-blur-md">
             <div className="flex flex-col gap-2 w-60 sm:w-72 text-[10px] sm:text-xs z-50">
-                <div className="error-alert cursor-default flex items-center justify-between w-full rounded-lg bg-gray-800 px-[10px]">
+                <div className="error-alert cursor-default flex items-center justify-between w-full rounded-lg bg-surface-alt px-[10px]">
                     <div className="flex gap-3 p-2 items-center">
-                        <div className="text-[#d65563] bg-white/5 p-1 rounded-lg">
+                        <div className="text-danger bg-white/5 p-1 rounded-lg">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -23,18 +23,18 @@ export default function NotificationModal({
                                 />
                             </svg>
                         </div>
-                        <div className="text-wrap">
-                            <p className="text-white">
+                        <div className="text-wrap text-sm">
+                            <p className="text-white text-bolder">
                                 {data.header.slice(0, 30)}
                                 {data.header.length > 30 ? "..." : ""}
                             </p>
-                            <p className="text-gray-500">
+                            <p className="text-subtitle">
                                 {data.body.slice(0, 80)}
                                 {data.header.length > 80 ? "..." : ""}
                             </p>
                         </div>
                     </div>
-                    <button className="text-gray-600 hover:bg-white/10 p-1 rounded-md transition-colors ease-linear">
+                    <button className="text-subtitle hover:bg-white/10 p-1 rounded-md transition-colors ease-linear">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"

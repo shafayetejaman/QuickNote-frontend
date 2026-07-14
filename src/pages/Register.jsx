@@ -76,7 +76,7 @@ export default function Register() {
 
             <Card>
                 <h1 className="text-3xl mb-3">Create Account</h1>
-                <p className="text-neutral-400">Sign up to get started</p>
+                <p className="text-subtitle">Sign up to get started</p>
 
                 <form
                     onSubmit={onSubmit}
@@ -115,7 +115,7 @@ export default function Register() {
                         onChange={setPassword}
                     />
                     {passwordValidationError.error && (
-                        <div className="flex flex-col gap-2 my-2 text-sm text-red-700 text-left">
+                        <div className="flex flex-col gap-2 my-2 text-sm text-danger text-left">
                             {passwordValidationError.message.map(
                                 (message, idx) => (
                                     <p
@@ -139,10 +139,10 @@ export default function Register() {
 
                     <Button text={"Sign Up"} loading={loading} />
 
-                    <p className="text-neutral-400">
+                    <p className="text-subtitle">
                         Already have account?{" "}
                         <Link
-                            className="text-red-600 hover:underline"
+                            className="text-primary hover:underline"
                             to="/login"
                         >
                             Sign In
