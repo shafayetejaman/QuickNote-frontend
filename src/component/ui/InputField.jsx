@@ -39,7 +39,7 @@ export default function InputField({
                         ? () => {}
                         : (e) => onChange(e.target.value)
                 }
-                className={`w-full bg-surface-alt rounded p-2 border border-border mt-1 ${className} text-sm`}
+                className={`w-full bg-surface-alt rounded p-2 border border-secondary mt-1 ${className} text-sm`}
             />
         </div>
     )

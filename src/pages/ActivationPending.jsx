@@ -5,7 +5,7 @@ export default function ActivationPending() {
     return (
         <Card>
             <div className="flex justify-around pb-14">
-                <div className="border border-border bg-surface-alt rounded-full p-4 relative">
+                <div className="border border-secondary bg-surface-alt rounded-full p-4 relative">
                     <Mail className="text-primary" size={38} />
                     <div className="bg-surface-alt rounded-full p-1 right-0 bottom-0 absolute">
                         <CheckCircle className="text-primary" size={18} />

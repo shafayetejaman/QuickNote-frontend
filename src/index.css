@@ -5,7 +5,7 @@
 :root {
     --color-primary: #dc2626;
     --color-primary-hover: #b91c1c;
-    --color-secondary: #6366f1;
+    --color-secondary: #262626;
     --color-natural: #f5f5f5;
     --color-subtitle: #a3a3a3;
     --color-warning: #f59e0b;
@@ -13,7 +13,6 @@
     --color-background: #000000;
     --color-surface: #0a0a0a;
     --color-surface-alt: #171717;
-    --color-border: #262626;
 }
 
 body {
