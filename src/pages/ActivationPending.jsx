@@ -24,7 +24,7 @@ export default function ActivationPending() {
                     We&apos;ve sent an activation link to
                 </p>
 
-                <p className="text-primary font-medium text-sm mb-4 bg-red-900/30 border border-red-500/30 px-4 py-2 rounded-full">
+                <p className="text-primary font-medium text-sm mb-4 bg-primary-alt/20 border border-primary/30 px-4 py-2 rounded-full">
                     {email}
                 </p>
 
