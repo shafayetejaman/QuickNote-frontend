@@ -56,7 +56,7 @@ export default function Login() {
                 ></NotificationModal>
             )}
 
-            <Card>
+            <Card className="min-w-80">
                 <p className="text-3xl mb-3">Welcome Back</p>
                 <h1 className="text-subtitle">Sign in to continue</h1>
                 <form

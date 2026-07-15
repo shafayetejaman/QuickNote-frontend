@@ -5,16 +5,12 @@ export default function Button({ className = "", loading, text }) {
     className = classNameJoin(
         className,
         "flex justify-center w-full bg-primary rounded p-2 mt-3",
-        "hover:bg-primary-hover transition duration-150"
+        "hover:bg-primary-alt transition duration-200"
     )
     return (
         <button type="submit" disabled={loading} className={className}>
             {loading ? (
-                <LoaderCircle
-                    className="animate-spin "
-                    className="text-natural animate-spin"
-                    size={38}
-                />
+                <LoaderCircle className="text-natural animate-spin" size={38} />
             ) : (
                 text
             )}

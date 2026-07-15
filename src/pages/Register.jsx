@@ -74,7 +74,7 @@ export default function Register() {
                 ></NotificationModal>
             )}
 
-            <Card>
+            <Card className="min-w-96">
                 <h1 className="text-3xl mb-3">Create Account</h1>
                 <p className="text-subtitle">Sign up to get started</p>
 

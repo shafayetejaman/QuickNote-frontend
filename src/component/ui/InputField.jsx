@@ -16,8 +16,8 @@ export default function InputField({
     if (type === "file") {
         className += classNameJoin(
             "file:mr-4 file:py-2 file:px-3 file:rounded file:border-0",
-            "file:text-sm file:bg-primary file:text-natural file:hover:bg-primary-hover",
-            "text-lg text-[22px] transition duration-150"
+            "file:text-sm file:bg-primary file:text-natural file:hover:bg-primary-alt",
+            "text-lg text-[22px] transition duration-200"
         )
     }
     return (
