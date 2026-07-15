@@ -1,14 +1,21 @@
 import { LoaderCircle } from "lucide-react"
 import { classNameJoin } from "../../utils"
 
-export default function Button({ className = "", loading, text }) {
+export default function Button({ className = "", loading, text, onClick }) {
     className = classNameJoin(
         className,
         "flex justify-center w-full bg-primary rounded p-2 mt-3",
-        "hover:bg-primary-alt transition duration-200"
+        "transition duration-200",
+        "disabled:opacity-70 disabled:cursor-not-allowed",
+        "enabled:hover:bg-primary-alt"
     )
     return (
-        <button type="submit" disabled={loading} className={className}>
+        <button
+            type="submit"
+            disabled={loading}
+            className={className}
+            onClick={onClick === undefined ? () => {} : onClick}
+        >
             {loading ? (
                 <LoaderCircle className="text-natural animate-spin" size={38} />
             ) : (

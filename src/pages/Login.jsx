@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link, useNavigate } from "react-router"
+import { Link } from "react-router"
 import Card from "../component/ui/Card"
 import InputField from "../component/ui/InputField"
 import ProgressBar from "../component/ProgressBar"
@@ -7,11 +7,12 @@ import { loginUser } from "../api/auth"
 import requestHander from "../utils/requestHandler"
 import NotificationModal from "../component/NotificationModal"
 import Button from "../component/ui/Button"
+import { useAuth } from "../context/index.js"
 
 export default function Login() {
     const [loading, setLoading] = useState(false)
     const [notification, setNotification] = useState({})
-    const navigate = useNavigate()
+    const { login } = useAuth()
 
     const toggleNotification = () => {
         setNotification((prev) => ({
@@ -28,14 +29,6 @@ export default function Login() {
         })
     }
 
-    const onSuccess = (data) => {
-        localStorage.setItem("userId", data.userId)
-        localStorage.setItem("accessToken", data.accessToken)
-        localStorage.setItem("refreshToken", data.refreshToken)
-
-        navigate("/home", { replace: true })
-    }
-
     const onSubmit = async (e) => {
         e.preventDefault()
         const formData = new FormData(e.target)
@@ -43,7 +36,7 @@ export default function Login() {
             username: formData.get("username"),
             password: formData.get("password"),
         }
-        await requestHander(loginUser(data), setLoading, onSuccess, onError)
+        await requestHander(loginUser(data), setLoading, login, onError)
     }
 
     return (

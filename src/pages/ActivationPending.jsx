@@ -2,9 +2,10 @@ import { Mail, CheckCircle } from "lucide-react"
 import Card from "../component/ui/Card"
 import { Link } from "react-router"
 import Button from "../component/ui/Button"
+import { useAuth } from "../context"
 
 export default function ActivationPending() {
-    const email = "shafayet@gmail.com"
+    const { user } = useAuth()
     return (
         <div className="flex justify-center min-h-screen">
             <Card>
@@ -25,7 +26,7 @@ export default function ActivationPending() {
                 </p>
 
                 <p className="text-primary font-medium text-sm mb-4 bg-primary-alt/20 border border-primary/30 px-4 py-2 rounded-full">
-                    {email}
+                    {user?.username}
                 </p>
 
                 <p className="text-neutral text-sm leading-relaxed mb-8">
@@ -40,8 +41,8 @@ export default function ActivationPending() {
                         Didn&apos;t receive the email? Check your spam folder or
                     </p>
                 </div>
-
-                <Button text={"Resend link"} className="my-2" />
+                {/* TODO:  add feature to resend activation link with max retry of 3 */}
+                <Button text={"Resend link"} className="my-2" disable={true} />
 
                 <p className="text-subtitle">
                     Don't have an account?{" "}

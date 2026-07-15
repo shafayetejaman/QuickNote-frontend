@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router"
+import { Link } from "react-router"
 import { useEffect, useState } from "react"
 import Card from "../component/ui/Card"
 import InputField from "../component/ui/InputField"
@@ -9,13 +9,14 @@ import NotificationModal from "../component/NotificationModal"
 import passwordValitor from "../validator/passwordValidator"
 import { CircleX } from "lucide-react"
 import Button from "../component/ui/Button"
+import { useAuth } from "../context/index.js"
 
 export default function Register() {
     const [loading, setLoading] = useState(false)
     const [notification, setNotification] = useState({})
     const [passwordValidationError, setPasswordValidationError] = useState({})
     const [password, setPassword] = useState("")
-    const navigate = useNavigate()
+    const { register } = useAuth()
 
     useEffect(() => {
         passwordValitor(password, setPasswordValidationError)
@@ -34,10 +35,6 @@ export default function Register() {
             header: "Unable to register user",
             body: message,
         })
-    }
-
-    const onSuccess = () => {
-        navigate("/activation-pending", { replace: true })
     }
 
     const onSubmit = async (e) => {
@@ -59,7 +56,7 @@ export default function Register() {
         await requestHander(
             registerUser(formData),
             setLoading,
-            onSuccess,
+            register,
             onError
         )
     }

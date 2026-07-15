@@ -2,7 +2,7 @@
   <defs>
     <linearGradient id="a" x1="4.953" x2="68.992" y1="9" y2="9" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#fb0054" class="stopColore93e3a svgShape"></stop>
-      <stop offset=".357" stop-color="#f04c84" class="stopColored683c svgShape"></stop>
+      <stop offset=".357" stop-color="#fb0054" class="stopColored683c svgShape"></stop>
       <stop offset=".718" stop-color="#f33f7c" class="stopColorf3903f svgShape"></stop>
       <stop offset="1" stop-color="#fd0c5e" class="stopColorfdc70c svgShape"></stop>
     </linearGradient>

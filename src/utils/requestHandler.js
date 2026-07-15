@@ -10,7 +10,7 @@ export default async function requestHander(
         if (setLoading) setLoading(true)
         response = await api()
 
-        if (onSuccess) onSuccess(response?.data)
+        if (onSuccess) onSuccess(response?.data?.data)
     } catch (error) {
         if (onError) {
             onError(error?.response?.data?.message || "Something went wrong")
@@ -20,5 +20,5 @@ export default async function requestHander(
         if (setLoading) setLoading(false)
     }
 
-    return [response?.data || null]
+    return [response?.data?.data || null]
 }
