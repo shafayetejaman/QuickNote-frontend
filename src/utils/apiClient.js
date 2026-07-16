@@ -4,7 +4,7 @@ import { redirect } from "react-router"
 
 function initAxios() {
     const env = import.meta.env
-    const baseURL = env.VITE_LOCAL_BASE_BACKEND_URL + "/api/v1" || ""
+    const baseURL = env.VITE_BACKEND_URL + "/api/v1" || ""
     const axiosInstance = axios.create({
         baseURL,
         timeout: 5000,
