@@ -15,12 +15,12 @@ export default function AuthProvider({ children }) {
     const [token, setToken] = useState(LocalStorage.get("token"))
     const navigate = useNavigate()
 
-    const login = (data) => {
+    const login = (res) => {
         LocalStorage.set("token", {
-            accessToken: data.accessToken,
-            refreshToken: data.refreshToken,
+            accessToken: res.data.accessToken,
+            refreshToken: res.data.refreshToken,
         })
-        LocalStorage.set("user", data.user)
+        LocalStorage.set("user", res.data.user)
         setToken(LocalStorage.get("token"))
         setUser(LocalStorage.get("user"))
 
@@ -33,8 +33,8 @@ export default function AuthProvider({ children }) {
 
         navigate("/login", { replace: true })
     }
-    const register = (data) => {
-        LocalStorage.set("user", data)
+    const register = (res) => {
+        LocalStorage.set("user", res.data)
         setUser(LocalStorage.get("user"))
 
         navigate("/activation-pending", { replace: true })
