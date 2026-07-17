@@ -1,16 +1,24 @@
-import { Routes, Route } from "react-router"
+import { Route, Routes } from "react-router"
 import PrivateRoute from "./component/PrivateRoute.jsx"
+import PublicRoute from "./component/PublicRoute.jsx"
+import ActivationPending from "./pages/ActivationPending.jsx"
 import Home from "./pages/Home.jsx"
 import Login from "./pages/Login.jsx"
-import Register from "./pages/Register.jsx"
-import ActivationPending from "./pages/ActivationPending.jsx"
 import NotFoundPage from "./pages/NotFoundPage.jsx"
-import PublicRoute from "./component/PublicRoute.jsx"
+import Register from "./pages/Register.jsx"
 
 export default function App() {
     return (
         <Routes>
             <Route path="*" element={<NotFoundPage />} />
+            <Route
+                path="/"
+                element={
+                    <PrivateRoute>
+                        <Home />
+                    </PrivateRoute>
+                }
+            />
             <Route
                 path="/home"
                 element={

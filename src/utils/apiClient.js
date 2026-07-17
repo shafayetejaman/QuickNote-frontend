@@ -7,7 +7,7 @@ function initAxios() {
     const baseURL = env.VITE_BACKEND_URL + "/api/v1" || ""
     const axiosInstance = axios.create({
         baseURL,
-        timeout: 50000,
+        timeout: 8000,
         withCredentials: true,
     })
 
