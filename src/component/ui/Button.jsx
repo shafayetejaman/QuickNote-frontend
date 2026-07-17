@@ -1,7 +1,13 @@
 import { LoaderCircle } from "lucide-react"
 import { classNameJoin } from "../../utils"
 
-export default function Button({ className = "", loading, text, onClick }) {
+export default function Button({
+    className = "",
+    loading,
+    text,
+    onClick,
+    disabled = false,
+}) {
     className = classNameJoin(
         className,
         "flex justify-center w-full bg-primary rounded p-2 mt-3",
@@ -12,7 +18,7 @@ export default function Button({ className = "", loading, text, onClick }) {
     return (
         <button
             type="submit"
-            disabled={loading}
+            disabled={loading || disabled}
             className={className}
             onClick={onClick === undefined ? () => {} : onClick}
         >

@@ -134,7 +134,11 @@ export default function Register() {
                         accept="image/*"
                     />
 
-                    <Button text={"Sign Up"} loading={loading} />
+                    <Button
+                        text={"Sign Up"}
+                        loading={loading}
+                        disabled={passwordValidationError.error}
+                    />
 
                     <p className="text-subtitle">
                         Already have account?{" "}
