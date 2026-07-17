@@ -1,13 +1,13 @@
 import axios from "axios"
-import { getRefreshToken } from "../api/auth"
 import { redirect } from "react-router"
+import { getRefreshToken } from "../api/auth"
 
 function initAxios() {
     const env = import.meta.env
     const baseURL = env.VITE_BACKEND_URL + "/api/v1" || ""
     const axiosInstance = axios.create({
         baseURL,
-        timeout: 5000,
+        timeout: 50000,
         withCredentials: true,
     })
 
