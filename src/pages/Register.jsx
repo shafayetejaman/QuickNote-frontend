@@ -110,6 +110,11 @@ export default function Register() {
                         placeholder="Use strong password"
                         required
                         onChange={setPassword}
+                        className={
+                            passwordValidationError.error
+                                ? "border-2 border-primary focus:outline-none"
+                                : ""
+                        }
                     />
                     {passwordValidationError.error && (
                         <div className="flex flex-col gap-2 my-2 text-sm text-danger text-left">

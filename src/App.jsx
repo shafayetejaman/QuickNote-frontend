@@ -5,12 +5,15 @@ import ActivationPending from "./pages/ActivationPending.jsx"
 import Home from "./pages/Home.jsx"
 import Login from "./pages/Login.jsx"
 import NotFoundPage from "./pages/NotFoundPage.jsx"
+import Tmp from "./pages/Tmp.jsx"
 import Register from "./pages/Register.jsx"
 
 export default function App() {
     return (
         <Routes>
             <Route path="*" element={<NotFoundPage />} />
+            {/* TODO: make sure to remove in production only for styleing pages */}
+            <Route path="/tmp" element={<Tmp />} />
             <Route
                 path="/"
                 element={
