@@ -7,8 +7,13 @@ import Login from "./pages/Login.jsx"
 import NotFoundPage from "./pages/NotFoundPage.jsx"
 import Tmp from "./pages/Tmp.jsx"
 import Register from "./pages/Register.jsx"
+import requestHander from "./utils/requestHandler.js"
+import { ping } from "./api/index.js"
 
 export default function App() {
+    // ping for cold starupt
+    requestHander(ping)
+
     return (
         <Routes>
             <Route path="*" element={<NotFoundPage />} />
