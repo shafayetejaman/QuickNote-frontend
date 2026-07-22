@@ -4,14 +4,15 @@ import Card from "../component/ui/Card"
 import InputField from "../component/ui/InputField"
 import ProgressBar from "../component/ProgressBar"
 import { loginUser } from "../api/auth"
-import requestHander from "../utils/requestHandler"
+import requestHandler from "../utils/requestHandler"
 import NotificationModal from "../component/NotificationModal"
 import Button from "../component/ui/Button"
-import { useAuth } from "../context/index.js"
+import { useAuth } from "../context/index"
+import type { INotificationData } from "../interface"
 
 export default function Login() {
     const [loading, setLoading] = useState(false)
-    const [notification, setNotification] = useState({})
+    const [notification, setNotification] = useState<INotificationData>({})
     const { login } = useAuth()
 
     const toggleNotification = () => {
@@ -21,7 +22,7 @@ export default function Login() {
         }))
     }
 
-    const onError = (message) => {
+    const onError = (message: string) => {
         setNotification({
             error: true,
             header: "Unable to login",
@@ -29,14 +30,14 @@ export default function Login() {
         })
     }
 
-    const onSubmit = async (e) => {
+    const onSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const formData = new FormData(e.target)
+        const formData = new FormData(e.currentTarget)
         const data = {
-            username: formData.get("username"),
-            password: formData.get("password"),
+            username: formData.get("username") as string,
+            password: formData.get("password") as string,
         }
-        await requestHander(loginUser(data), setLoading, login, onError)
+        await requestHandler(loginUser(data), setLoading, login, onError)
     }
 
     return (

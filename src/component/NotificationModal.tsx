@@ -1,9 +1,10 @@
 import { Info, X } from "lucide-react"
+import type { INotificationModalProps } from "../interface"
 
 export default function NotificationModal({
     onClick,
     data = { header: "Please try again.", body: "Something when Wrong!" },
-}) {
+}: INotificationModalProps) {
     return (
         <div className="fixed h-full w-full flex justify-center items-center bg-black/20 backdrop-blur-md">
             <div className="w-60 sm:w-80 z-50 flex items-center justify-between rounded-lg bg-surface-alt px-[10px]">
@@ -13,12 +14,12 @@ export default function NotificationModal({
                     </div>
                     <div className="text-wrap text-sm">
                         <p className="text-white text-bolder">
-                            {data.header.slice(0, 30)}
-                            {data.header.length > 30 ? "..." : ""}
+                            {data.header!.slice(0, 30)}
+                            {data.header!.length > 30 ? "..." : ""}
                         </p>
                         <p className="text-subtitle">
-                            {data.body.slice(0, 80)}
-                            {data.header.length > 80 ? "..." : ""}
+                            {data.body!.slice(0, 80)}
+                            {data.body!.length > 80 ? "..." : ""}
                         </p>
                     </div>
                 </div>

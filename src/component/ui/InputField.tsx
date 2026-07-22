@@ -1,4 +1,5 @@
 import { classNameJoin } from "../../utils"
+import type { IInputFieldProps } from "../../interface"
 
 export default function InputField({
     id,
@@ -12,7 +13,7 @@ export default function InputField({
     required = false,
     accept,
     className = "",
-}) {
+}: IInputFieldProps) {
     if (type === "file") {
         className += classNameJoin(
             "file:mr-4 file:py-2 file:px-3 file:rounded file:border-0",

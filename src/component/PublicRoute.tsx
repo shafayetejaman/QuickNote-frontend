@@ -1,7 +1,8 @@
 import { Navigate } from "react-router"
 import { useAuth } from "../context"
+import type { IRouteProps } from "../interface"
 
-export default function AnonymusRoute({ children }) {
+export default function PublicRoute({ children }: IRouteProps) {
     const { user, token } = useAuth()
 
     if (!user || !token) return children

@@ -1,6 +1,7 @@
 import axios from "axios"
 import { redirect } from "react-router"
 import { getRefreshToken } from "../api/auth"
+import type { AxiosRequestConfig, InternalAxiosRequestConfig } from "axios"
 
 function initAxios() {
     const env = import.meta.env
@@ -17,7 +18,7 @@ function initAxios() {
 
     // add bearer token before every request
     axiosInstance.interceptors.request.use(
-        (config) => {
+        (config: InternalAxiosRequestConfig) => {
             const token = localStorage.getItem("accessToken")
             config.headers.Authorization = `Bearer ${token}`
 
@@ -32,7 +33,7 @@ function initAxios() {
     axiosInstance.interceptors.response.use(
         (response) => response,
         async (error) => {
-            const originalRequest = error.config
+            const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean }
 
             // haven not retried and unothorized response
             if (error.response?.status === 401 && !originalRequest._retry) {
@@ -43,7 +44,7 @@ function initAxios() {
 
                 try {
                     const newResponse = await getRefreshToken(refreshToken)
-                    const { newAccessToken, newRefreshToken } = newResponse.body
+                    const { newAccessToken, newRefreshToken } = newResponse.data
 
                     localStorage.setItem("accessToken", newAccessToken)
                     localStorage.setItem("refreshToken", newRefreshToken)
@@ -52,7 +53,7 @@ function initAxios() {
                     throw redirect("/login")
                 }
                 // resending old request
-                axiosInstance(originalRequest)
+                axiosInstance(originalRequest as AxiosRequestConfig)
             }
             return Promise.reject(error)
         }

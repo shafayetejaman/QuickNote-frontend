@@ -3,18 +3,20 @@ import { useEffect, useState } from "react"
 import Card from "../component/ui/Card"
 import InputField from "../component/ui/InputField"
 import ProgressBar from "../component/ProgressBar"
-import requestHander from "../utils/requestHandler"
+import requestHandler from "../utils/requestHandler"
 import { registerUser } from "../api/auth"
 import NotificationModal from "../component/NotificationModal"
 import passwordValitor from "../validators/passwordValidator"
 import { CircleX } from "lucide-react"
 import Button from "../component/ui/Button"
-import { useAuth } from "../context/index.js"
+import { useAuth } from "../context/index"
+import type { INotificationData, IPasswordValidationError } from "../interface"
 
 export default function Register() {
     const [loading, setLoading] = useState(false)
-    const [notification, setNotification] = useState({})
-    const [passwordValidationError, setPasswordValidationError] = useState({})
+    const [notification, setNotification] = useState<INotificationData>({})
+    const [passwordValidationError, setPasswordValidationError] =
+        useState<IPasswordValidationError>({ error: false })
     const [password, setPassword] = useState("")
     const { register } = useAuth()
 
@@ -29,7 +31,7 @@ export default function Register() {
         }))
     }
 
-    const onError = (message) => {
+    const onError = (message: string) => {
         setNotification({
             error: true,
             header: "Unable to register user",
@@ -37,11 +39,11 @@ export default function Register() {
         })
     }
 
-    const onSubmit = async (e) => {
+    const onSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const formData = new FormData(e.target)
+        const formData = new FormData(e.currentTarget)
 
-        if (formData.get("profileImage").size === 0) {
+        if ((formData.get("profileImage") as File).size === 0) {
             formData.delete("profileImage")
         }
 
@@ -53,7 +55,7 @@ export default function Register() {
             })
         }
 
-        await requestHander(
+        await requestHandler(
             registerUser(formData),
             setLoading,
             register,
@@ -118,7 +120,7 @@ export default function Register() {
                     />
                     {passwordValidationError.error && (
                         <div className="flex flex-col gap-2 my-2 text-sm text-danger text-left">
-                            {passwordValidationError.message.map(
+                            {passwordValidationError.message!.map(
                                 (message, idx) => (
                                     <p
                                         key={idx}

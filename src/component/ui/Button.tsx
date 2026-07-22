@@ -1,5 +1,6 @@
 import { LoaderCircle } from "lucide-react"
 import { classNameJoin } from "../../utils"
+import type { IButtonProps } from "../../interface"
 
 export default function Button({
     className = "",
@@ -7,7 +8,7 @@ export default function Button({
     text,
     onClick,
     disabled = false,
-}) {
+}: IButtonProps) {
     className = classNameJoin(
         className,
         "flex justify-center w-full bg-primary rounded p-2 mt-3",

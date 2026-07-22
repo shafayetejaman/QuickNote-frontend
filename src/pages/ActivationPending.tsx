@@ -42,7 +42,7 @@ export default function ActivationPending() {
                     </p>
                 </div>
                 {/* TODO:  add feature to resend activation link with max retry of 3 */}
-                <Button text={"Resend link"} className="my-2" disable={true} />
+                <Button text={"Resend link"} className="my-2" disabled={true} />
 
                 <p className="text-subtitle">
                     Don't have an account?{" "}

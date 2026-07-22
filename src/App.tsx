@@ -1,18 +1,18 @@
 import { Route, Routes } from "react-router"
-import PrivateRoute from "./component/PrivateRoute.jsx"
-import PublicRoute from "./component/PublicRoute.jsx"
-import ActivationPending from "./pages/ActivationPending.jsx"
-import Home from "./pages/Home.jsx"
-import Login from "./pages/Login.jsx"
-import NotFoundPage from "./pages/NotFoundPage.jsx"
-import Tmp from "./pages/Tmp.jsx"
-import Register from "./pages/Register.jsx"
-import requestHander from "./utils/requestHandler.js"
-import { ping } from "./api/index.js"
+import PrivateRoute from "./component/PrivateRoute"
+import PublicRoute from "./component/PublicRoute"
+import ActivationPending from "./pages/ActivationPending"
+import Home from "./pages/Home"
+import Login from "./pages/Login"
+import NotFoundPage from "./pages/NotFoundPage"
+import Tmp from "./pages/Tmp"
+import Register from "./pages/Register"
+import requestHandler from "./utils/requestHandler"
+import { ping } from "./api/index"
 
 export default function App() {
     // ping for cold starupt
-    requestHander(ping)
+    requestHandler(ping())
 
     return (
         <Routes>

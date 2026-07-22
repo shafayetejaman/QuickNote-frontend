@@ -1,8 +1,13 @@
 import { createContext, useState } from "react"
 import { useNavigate } from "react-router"
 import { LocalStorage } from "../utils"
+import type {
+    IAuthContextValue,
+    ILoginResponseData,
+    IRegisterResponseData,
+} from "../interface"
 
-const AuthContex = createContext({
+const AuthContext = createContext<IAuthContextValue>({
     user: null,
     logout: () => {},
     login: () => {},
@@ -10,17 +15,21 @@ const AuthContex = createContext({
     token: null,
 })
 
-export default function AuthProvider({ children }) {
+export default function AuthProvider({
+    children,
+}: {
+    children: React.ReactNode
+}) {
     const [user, setUser] = useState(LocalStorage.get("user"))
     const [token, setToken] = useState(LocalStorage.get("token"))
     const navigate = useNavigate()
 
-    const login = (res) => {
+    const login = (data: ILoginResponseData) => {
         LocalStorage.set("token", {
-            accessToken: res.data.accessToken,
-            refreshToken: res.data.refreshToken,
+            accessToken: data.accessToken,
+            refreshToken: data.refreshToken,
         })
-        LocalStorage.set("user", res.data.user)
+        LocalStorage.set("user", data.user)
         setToken(LocalStorage.get("token"))
         setUser(LocalStorage.get("user"))
 
@@ -33,18 +42,18 @@ export default function AuthProvider({ children }) {
 
         navigate("/login", { replace: true })
     }
-    const register = (res) => {
-        LocalStorage.set("user", res.data)
+    const register = (data: IRegisterResponseData) => {
+        LocalStorage.set("user", data.user)
         setUser(LocalStorage.get("user"))
 
         navigate("/activation-pending", { replace: true })
     }
 
     return (
-        <AuthContex.Provider value={{ user, logout, register, login, token }}>
+        <AuthContext.Provider value={{ user, logout, register, login, token }}>
             {children}
-        </AuthContex.Provider>
+        </AuthContext.Provider>
     )
 }
 
-export { AuthContex }
+export { AuthContext }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
+import type { IProgressBarProps } from "../interface"
 
-export default function ProgressBar({ iniProgress = 10 }) {
+export default function ProgressBar({ iniProgress = 10 }: IProgressBarProps) {
     const [progress, setProgress] = useState(iniProgress)
 
     useEffect(() => {
