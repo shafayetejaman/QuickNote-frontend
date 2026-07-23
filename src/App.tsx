@@ -1,14 +1,14 @@
 import { Route, Routes } from "react-router"
+import { ping } from "./api/index"
 import PrivateRoute from "./component/PrivateRoute"
 import PublicRoute from "./component/PublicRoute"
 import ActivationPending from "./pages/ActivationPending"
 import Home from "./pages/Home"
 import Login from "./pages/Login"
 import NotFoundPage from "./pages/NotFoundPage"
-import Tmp from "./pages/Tmp"
 import Register from "./pages/Register"
+import Tmp from "./pages/Tmp"
 import requestHandler from "./utils/requestHandler"
-import { ping } from "./api/index"
 
 export default function App() {
     // ping for cold starupt

@@ -1,11 +1,11 @@
+import type { AxiosRequestConfig, InternalAxiosRequestConfig } from "axios"
 import axios from "axios"
 import { redirect } from "react-router"
 import { getRefreshToken } from "../api/auth"
-import type { AxiosRequestConfig, InternalAxiosRequestConfig } from "axios"
 
 function initAxios() {
     const env = import.meta.env
-    const baseURL = env.VITE_BACKEND_URL + "/api/v1" || ""
+    const baseURL = `${env.VITE_BACKEND_URL}/api/v1` || ""
     const axiosInstance = axios.create({
         baseURL,
         timeout: 8000,
@@ -33,7 +33,10 @@ function initAxios() {
     axiosInstance.interceptors.response.use(
         (response) => response,
         async (error) => {
-            const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean }
+            const originalRequest =
+                error.config as InternalAxiosRequestConfig & {
+                    _retry?: boolean
+                }
 
             // haven not retried and unothorized response
             if (error.response?.status === 401 && !originalRequest._retry) {

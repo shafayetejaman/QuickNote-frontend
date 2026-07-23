@@ -14,12 +14,12 @@ export default function NotificationModal({
                     </div>
                     <div className="text-wrap text-sm">
                         <p className="text-white text-bolder">
-                            {data.header!.slice(0, 30)}
-                            {data.header!.length > 30 ? "..." : ""}
+                            {data.header?.slice(0, 30)}
+                            {data.header?.length > 30 ? "..." : ""}
                         </p>
                         <p className="text-subtitle">
-                            {data.body!.slice(0, 80)}
-                            {data.body!.length > 80 ? "..." : ""}
+                            {data.body?.slice(0, 80)}
+                            {data.body?.length > 80 ? "..." : ""}
                         </p>
                     </div>
                 </div>

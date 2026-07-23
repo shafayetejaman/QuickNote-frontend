@@ -1,16 +1,16 @@
-import { Link } from "react-router"
+import { CircleX } from "lucide-react"
 import { useEffect, useState } from "react"
-import Card from "../component/ui/Card"
-import InputField from "../component/ui/InputField"
-import ProgressBar from "../component/ProgressBar"
-import requestHandler from "../utils/requestHandler"
+import { Link } from "react-router"
 import { registerUser } from "../api/auth"
 import NotificationModal from "../component/NotificationModal"
-import passwordValitor from "../validators/passwordValidator"
-import { CircleX } from "lucide-react"
+import ProgressBar from "../component/ProgressBar"
 import Button from "../component/ui/Button"
+import Card from "../component/ui/Card"
+import InputField from "../component/ui/InputField"
 import { useAuth } from "../context/index"
 import type { INotificationData, IPasswordValidationError } from "../interface"
+import requestHandler from "../utils/requestHandler"
+import passwordValitor from "../validators/passwordValidator"
 
 export default function Register() {
     const [loading, setLoading] = useState(false)
@@ -120,7 +120,7 @@ export default function Register() {
                     />
                     {passwordValidationError.error && (
                         <div className="flex flex-col gap-2 my-2 text-sm text-danger text-left">
-                            {passwordValidationError.message!.map(
+                            {passwordValidationError.message?.map(
                                 (message, idx) => (
                                     <p
                                         key={idx}

@@ -1,14 +1,14 @@
 import { useState } from "react"
 import { Link } from "react-router"
+import { loginUser } from "../api/auth"
+import NotificationModal from "../component/NotificationModal"
+import ProgressBar from "../component/ProgressBar"
+import Button from "../component/ui/Button"
 import Card from "../component/ui/Card"
 import InputField from "../component/ui/InputField"
-import ProgressBar from "../component/ProgressBar"
-import { loginUser } from "../api/auth"
-import requestHandler from "../utils/requestHandler"
-import NotificationModal from "../component/NotificationModal"
-import Button from "../component/ui/Button"
 import { useAuth } from "../context/index"
 import type { INotificationData } from "../interface"
+import requestHandler from "../utils/requestHandler"
 
 export default function Login() {
     const [loading, setLoading] = useState(false)

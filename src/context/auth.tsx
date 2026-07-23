@@ -1,11 +1,11 @@
 import { createContext, useState } from "react"
 import { useNavigate } from "react-router"
-import { LocalStorage } from "../utils"
 import type {
     IAuthContextValue,
     ILoginResponseData,
     IRegisterResponseData,
 } from "../interface"
+import { LocalStorage } from "../utils"
 
 const AuthContext = createContext<IAuthContextValue>({
     user: null,

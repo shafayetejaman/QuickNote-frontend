@@ -1,7 +1,7 @@
 import { FileQuestion } from "lucide-react"
-import Card from "../component/ui/Card"
 import { useLocation, useNavigate } from "react-router"
 import Button from "../component/ui/Button"
+import Card from "../component/ui/Card"
 
 export default function NotFoundPage() {
     const location = useLocation()

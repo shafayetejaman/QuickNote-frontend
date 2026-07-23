@@ -1,6 +1,6 @@
 import { LoaderCircle } from "lucide-react"
-import { classNameJoin } from "../../utils"
 import type { IButtonProps } from "../../interface"
+import { classNameJoin } from "../../utils"
 
 export default function Button({
     className = "",

@@ -1,7 +1,7 @@
-import { Mail, CheckCircle } from "lucide-react"
-import Card from "../component/ui/Card"
+import { CheckCircle, Mail } from "lucide-react"
 import { Link } from "react-router"
 import Button from "../component/ui/Button"
+import Card from "../component/ui/Card"
 import { useAuth } from "../context"
 
 export default function ActivationPending() {

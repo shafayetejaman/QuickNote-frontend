@@ -1,5 +1,5 @@
-import { classNameJoin } from "../../utils"
 import type { IInputFieldProps } from "../../interface"
+import { classNameJoin } from "../../utils"
 
 export default function InputField({
     id,

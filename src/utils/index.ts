@@ -16,12 +16,14 @@ export class LocalStorage {
         localStorage.clear()
     }
     static pop<T = unknown>(key: string): T | null {
-        const item = this.get<T>(key)
+        const item = LocalStorage.get<T>(key)
         localStorage.removeItem(key)
         return item
     }
 }
 
-export function classNameJoin(...classes: (string | undefined | null | false)[]): string {
+export function classNameJoin(
+    ...classes: (string | undefined | null | false)[]
+): string {
     return classes.filter((s): s is string => !!s && !!s.trim()).join(" ")
 }
