@@ -8,6 +8,7 @@ import Login from "./pages/Login"
 import NotFoundPage from "./pages/NotFoundPage"
 import Register from "./pages/Register"
 import Tmp from "./pages/Tmp"
+import HomeRouter from "./routes/home"
 import requestHandler from "./utils/requestHandler"
 
 export default function App() {
@@ -23,18 +24,11 @@ export default function App() {
                 path="/"
                 element={
                     <PrivateRoute>
-                        <Home />
+                        <HomeRouter />
                     </PrivateRoute>
                 }
             />
-            <Route
-                path="/home"
-                element={
-                    <PrivateRoute>
-                        <Home />
-                    </PrivateRoute>
-                }
-            />
+            {/* public routes */}
             <Route
                 path="/login"
                 element={
