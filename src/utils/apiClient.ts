@@ -2,6 +2,8 @@ import type { AxiosRequestConfig, InternalAxiosRequestConfig } from "axios"
 import axios from "axios"
 import { redirect } from "react-router"
 import { getRefreshToken } from "../api/auth"
+import type { IToken } from "../interface"
+import { LocalStorage } from "../utils"
 
 function initAxios() {
     const env = import.meta.env
@@ -19,8 +21,8 @@ function initAxios() {
     // add bearer token before every request
     axiosInstance.interceptors.request.use(
         (config: InternalAxiosRequestConfig) => {
-            const token = localStorage.getItem("accessToken")
-            config.headers.Authorization = `Bearer ${token}`
+            const token = LocalStorage.get("token") as IToken | null
+            config.headers.Authorization = `Bearer ${token?.accessToken}`
 
             return config
         },
@@ -42,15 +44,19 @@ function initAxios() {
             if (error.response?.status === 401 && !originalRequest._retry) {
                 originalRequest._retry = true
 
-                const refreshToken = localStorage.getItem("refreshToken")
-                if (!refreshToken) throw redirect("/login")
+                const token = LocalStorage.get("token") as IToken | null
+                if (!token?.refreshToken) throw redirect("/login")
 
                 try {
-                    const newResponse = await getRefreshToken(refreshToken)
+                    const newResponse = await getRefreshToken(
+                        token.refreshToken
+                    )
                     const { newAccessToken, newRefreshToken } = newResponse.data
 
-                    localStorage.setItem("accessToken", newAccessToken)
-                    localStorage.setItem("refreshToken", newRefreshToken)
+                    LocalStorage.set("token", {
+                        accessToken: newAccessToken,
+                        refreshToken: newRefreshToken,
+                    })
                 } catch (newError) {
                     console.log(newError)
                     throw redirect("/login")

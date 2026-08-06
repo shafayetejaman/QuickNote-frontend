@@ -15,7 +15,6 @@ export default function App() {
 
     return (
         <Routes>
-            <Route path="*" element={<NotFoundPage />} />
             <Route
                 path="/*"
                 element={
@@ -49,6 +48,7 @@ export default function App() {
                     </PublicRoute>
                 }
             />
+            <Route path="*" element={<NotFoundPage />} />
         </Routes>
     )
 }

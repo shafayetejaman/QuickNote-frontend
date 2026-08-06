@@ -1,16 +1,16 @@
-export default async function requestHandler<T>(
-    api: () => Promise<{ data: T }>,
+export default async function requestHandler(
+    api: () => Promise<{ data: { data: unknown } }>,
     setLoading?: (loading: boolean) => void,
-    onSuccess?: (data: T) => void,
+    onSuccess?: (data: unknown) => void,
     onError?: (message: string) => void
-): Promise<[T | null]> {
-    let response: { data: T } | null = null
+): Promise<[unknown | null]> {
+    let response: { data: { data: unknown } } | null = null
 
     try {
         if (setLoading) setLoading(true)
         response = await api()
 
-        if (onSuccess) onSuccess(response.data)
+        if (onSuccess) onSuccess(response?.data?.data)
     } catch (error: unknown) {
         if (onError) {
             const err = error as { response?: { data?: { message?: string } } }
@@ -21,5 +21,5 @@ export default async function requestHandler<T>(
         if (setLoading) setLoading(false)
     }
 
-    return [response?.data || null]
+    return [response?.data?.data || null]
 }

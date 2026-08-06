@@ -38,7 +38,7 @@ export default function NotFoundPage() {
                 <Button
                     text={"Go Home"}
                     className="my-2"
-                    onClick={() => navigate("/home")}
+                    onClick={() => navigate("/")}
                 />
             </Card>
         </div>

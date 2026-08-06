@@ -1,5 +1,5 @@
-import apiClient from "../utils/apiClient"
+import axios from "axios"
 
-export const ping = (data?: unknown) => {
-    return () => apiClient.post("/", data, { timeout: 10000 })
+export const ping = () => {
+    return () => axios.get(import.meta.env.VITE_BACKEND_URL, { timeout: 10000 })
 }

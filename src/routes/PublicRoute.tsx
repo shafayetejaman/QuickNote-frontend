@@ -7,5 +7,5 @@ export default function PublicRoute({ children }: IRouteProps) {
 
     if (!user || !token) return children
 
-    return <Navigate to="/home" replace></Navigate>
+    return <Navigate to="/" replace></Navigate>
 }

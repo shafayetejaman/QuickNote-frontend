@@ -3,10 +3,11 @@ export class LocalStorage {
     static set(key: string, value: unknown) {
         localStorage.setItem(key, JSON.stringify(value))
     }
-    static get<T = unknown>(key: string): T | null {
+    static get(key: string): unknown | null {
+        const item = localStorage.getItem(key)
+        if (item === null) return null
         try {
-            const value: T = JSON.parse(localStorage.getItem(key) as string)
-            return value
+            return JSON.parse(item)
         } catch (error) {
             console.log(error)
             return null
@@ -15,8 +16,8 @@ export class LocalStorage {
     static clear() {
         localStorage.clear()
     }
-    static pop<T = unknown>(key: string): T | null {
-        const item = LocalStorage.get<T>(key)
+    static pop(key: string): unknown | null {
+        const item = LocalStorage.get(key)
         localStorage.removeItem(key)
         return item
     }

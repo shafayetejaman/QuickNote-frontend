@@ -4,6 +4,8 @@ import type {
     IAuthContextValue,
     ILoginResponseData,
     IRegisterResponseData,
+    IToken,
+    IUser,
 } from "../interface"
 import { LocalStorage } from "../utils"
 
@@ -20,8 +22,10 @@ export default function AuthProvider({
 }: {
     children: React.ReactNode
 }) {
-    const [user, setUser] = useState(LocalStorage.get("user"))
-    const [token, setToken] = useState(LocalStorage.get("token"))
+    const [user, setUser] = useState(LocalStorage.get("user") as IUser | null)
+    const [token, setToken] = useState(
+        LocalStorage.get("token") as IToken | null
+    )
     const navigate = useNavigate()
 
     const login = (data: ILoginResponseData) => {
@@ -30,10 +34,10 @@ export default function AuthProvider({
             refreshToken: data.refreshToken,
         })
         LocalStorage.set("user", data.user)
-        setToken(LocalStorage.get("token"))
-        setUser(LocalStorage.get("user"))
+        setToken(LocalStorage.get("token") as IToken | null)
+        setUser(LocalStorage.get("user") as IUser | null)
 
-        navigate("/home", { replace: true })
+        navigate("/", { replace: true })
     }
     const logout = () => {
         LocalStorage.clear()
@@ -44,7 +48,7 @@ export default function AuthProvider({
     }
     const register = (data: IRegisterResponseData) => {
         LocalStorage.set("user", data.user)
-        setUser(LocalStorage.get("user"))
+        setUser(LocalStorage.get("user") as IUser | null)
 
         navigate("/activation-pending", { replace: true })
     }
